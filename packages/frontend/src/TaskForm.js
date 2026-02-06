@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Paper, Typography, Box } from '@mui/material';
+import { TextField, Button, Paper, Typography, Box, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -7,6 +7,7 @@ function TaskForm({ onSave, initialTask }) {
   const [title, setTitle] = useState(initialTask?.title || '');
   const [description, setDescription] = useState(initialTask?.description || '');
   const [dueDate, setDueDate] = useState(initialTask?.due_date || '');
+  const [priority, setPriority] = useState(initialTask?.priority || 'P3');
   const [error, setError] = useState(null);
 
   // Helper to normalize date string to YYYY-MM-DD format
@@ -30,10 +31,12 @@ function TaskForm({ onSave, initialTask }) {
       setTitle(initialTask.title || '');
       setDescription(initialTask.description || '');
       setDueDate(normalizeDateString(initialTask.due_date));
+      setPriority(initialTask.priority || 'P3');
     } else {
       setTitle('');
       setDescription('');
       setDueDate('');
+      setPriority('P3');
     }
   }, [initialTask]);
 
@@ -43,11 +46,12 @@ function TaskForm({ onSave, initialTask }) {
       setError('Title is required');
       return;
     }
-    setError(null);
-    await onSave({ title, description, due_date: dueDate });
+    await onSave({ title, description, due_date: dueDate, priority });
     setTitle('');
     setDescription('');
     setDueDate('');
+    setPriority('P3');
+    setError(null);
   };
 
   return (
@@ -143,6 +147,99 @@ function TaskForm({ onSave, initialTask }) {
             }
           }}
         />
+        <Box>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              mb: 1,
+              color: '#666',
+              fontWeight: 500
+            }}
+          >
+            Priority
+          </Typography>
+          <ToggleButtonGroup
+            value={priority}
+            exclusive
+            onChange={(e, newPriority) => newPriority && setPriority(newPriority)}
+            aria-label="task priority"
+            fullWidth
+            size="small"
+          >
+            <ToggleButton 
+              value="P1" 
+              aria-label="P1 priority"
+              sx={{
+                borderRadius: 2,
+                border: '1px solid #7A7A7A',
+                color: '#7A7A7A',
+                fontWeight: 600,
+                textTransform: 'none',
+                '&.Mui-selected': {
+                  backgroundColor: '#07F2E6',
+                  color: '#000',
+                  border: '1px solid #07F2E6',
+                  '&:hover': {
+                    backgroundColor: '#06D8CE',
+                  }
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(122, 122, 122, 0.1)',
+                }
+              }}
+            >
+              P1
+            </ToggleButton>
+            <ToggleButton 
+              value="P2" 
+              aria-label="P2 priority"
+              sx={{
+                borderRadius: 2,
+                border: '1px solid #7A7A7A',
+                color: '#7A7A7A',
+                fontWeight: 600,
+                textTransform: 'none',
+                '&.Mui-selected': {
+                  backgroundColor: '#07F2E6',
+                  color: '#000',
+                  border: '1px solid #07F2E6',
+                  '&:hover': {
+                    backgroundColor: '#06D8CE',
+                  }
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(122, 122, 122, 0.1)',
+                }
+              }}
+            >
+              P2
+            </ToggleButton>
+            <ToggleButton 
+              value="P3" 
+              aria-label="P3 priority"
+              sx={{
+                borderRadius: 2,
+                border: '1px solid #7A7A7A',
+                color: '#7A7A7A',
+                fontWeight: 600,
+                textTransform: 'none',
+                '&.Mui-selected': {
+                  backgroundColor: '#07F2E6',
+                  color: '#000',
+                  border: '1px solid #07F2E6',
+                  '&:hover': {
+                    backgroundColor: '#06D8CE',
+                  }
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(122, 122, 122, 0.1)',
+                }
+              }}
+            >
+              P3
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
         {error && <Typography color="error" sx={{ fontWeight: 500, fontSize: '0.875rem' }}>{error}</Typography>}
         <Box display="flex" gap={2}>
           <Button 

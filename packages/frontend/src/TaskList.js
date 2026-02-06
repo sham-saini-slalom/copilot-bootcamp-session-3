@@ -203,6 +203,21 @@ function TaskList({ onEdit }) {
                 gap: 1
               }}
             >
+              {task.priority && (
+                <Chip
+                  label={task.priority}
+                  size="small"
+                  sx={{
+                    height: 24,
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    minWidth: 40,
+                    backgroundColor: '#07F2E6',
+                    color: '#000',
+                    border: '1px solid #07F2E6',
+                  }}
+                />
+              )}
               {task.due_date && (
                 <Chip
                   icon={<EventIcon sx={{ fontSize: 14 }} />}
