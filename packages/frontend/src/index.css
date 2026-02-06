@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Priority Toggle Button Styles */
+.priority-toggle-group .MuiToggleButton-root {
+  border-radius: 8px;
+  border: 1px solid #7A7A7A;
+  color: #7A7A7A;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.priority-toggle-group .MuiToggleButton-root:hover {
+  background-color: rgba(122, 122, 122, 0.1);
+}
+
+.priority-toggle-group .MuiToggleButton-root.Mui-selected {
+  background-color: #07F2E6;
+  color: #000;
+  border: 1px solid #07F2E6;
+}
+
+.priority-toggle-group .MuiToggleButton-root.Mui-selected:hover {
+  background-color: #06D8CE;
+}
